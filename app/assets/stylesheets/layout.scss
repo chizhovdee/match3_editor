@@ -1,0 +1,51 @@
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  font: {
+    size: 14px;
+    family: Tahoma, Arial, Verdana, sans-serif;
+  }
+}
+
+h1 {
+  font-size: 24px;
+  color: #3b5998;
+  margin: 0 10px 0 0;
+}
+
+h2, h3 {
+  font-size: 16px;
+  color: #3b5998;
+  margin: 0 0 7px 0;
+}
+
+h4 {
+  font-size: 14px;
+  margin: 0 0 5px 0;
+}
+
+td {
+  vertical-align: top;
+}
+
+th {
+  text-align: left;
+}
+
+.controls {
+  margin: 10px 0;
+
+  a {
+    line-height: 30px;
+    margin-bottom: 5px;
+    padding: 3px;
+    border: 1px solid #3B5998;
+    white-space: nowrap;
+    text-decoration: none;
+
+    &:hover {
+      background-color: #BEDDFE;
+    }
+  }
+}

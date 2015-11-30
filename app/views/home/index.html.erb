@@ -1,0 +1,9 @@
+<h1>Матч3 редактор</h1>
+
+<div class="controls"><%= link_to("Создать новый уровень", new_level_path, data: {confirm: "Вы уверены?"}) %></div>
+
+<ul class="levels">
+  <% @levels.each do |level_id| %>
+    <li><%= link_to(level_id, edit_level_path(level_id)) %></li>
+  <% end %>
+</ul>
