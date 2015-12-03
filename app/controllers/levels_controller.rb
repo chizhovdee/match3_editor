@@ -1,5 +1,8 @@
 class LevelsController < ApplicationController
   def new
+  end
+
+  def create
     last_level = Dir[Rails.root.join('public', 'levels', '*')].sort_by{|f| File.basename(f)}.last
     new_level = ("%03d" % (File.basename(last_level).to_i + 1)).scan(/\d{3}/).join("/")
 

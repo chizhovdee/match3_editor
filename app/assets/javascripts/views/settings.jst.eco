@@ -1,0 +1,52 @@
+<div class="settings">
+  <p>
+    <label for="movies">Кол-во ходов</label>
+    <input type="text" name="movies" size="3" value="0" />
+  </p>
+
+  <p>
+    <label for="points_2">Кол-во очков (2 звезды)</label>
+    <input type="text" name="points_2" size="5" value="0" />
+  </p>
+
+  <p>
+    <label for="points_3">Кол-во очков (3 звезды)</label>
+    <input type="text" name="points_3" size="5" value="0" />
+  </p>
+
+  <p>
+    <select name="target_1">
+      <option value="">Выберите цель</option>
+
+      <% for [target, value] in @.targetOptions(): %>
+        <option value="<%= value %>"><%= target %></option>
+      <% end %>
+    </select>
+
+    <input type="text" name="target_1_count" size="3" value="0" />
+  </p>
+
+  <p>
+    <select name="target_2">
+      <option value="">Выберите цель</option>
+
+      <% for [target, value] in @.targetOptions(): %>
+        <option value="<%= value %>"><%= target %></option>
+      <% end %>
+    </select>
+
+    <input type="text" name="target_2_count" size="3" value="0" />
+  </p>
+
+  <p>
+    <select name="target_3">
+      <option value="">Выберите цель</option>
+
+      <% for [target, value] in @.targetOptions(): %>
+        <option value="<%= value %>"><%= target %></option>
+      <% end %>
+    </select>
+
+    <input type="text" name="target_3_count" size="3" value="0" />
+  </p>
+</div>

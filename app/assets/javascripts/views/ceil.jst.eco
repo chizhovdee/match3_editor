@@ -1,0 +1,24 @@
+<div
+  class="ceil"
+  data-row="<%= @row %>"
+  data-col="<%= @col %>"
+  style="<%= @.ceilStylePosition(@row, @col) %>"
+>
+
+  <% if @layers[0] > -1: %>
+    <div class="backing <%= @editor.elements[@layers[0]] %>" data-element="<%= @editor.elements[@layers[0]] %>"></div>
+  <% end %>
+
+  <% if @layers[1] > -1: %>
+    <div class="tile <%= @editor.elements[@layers[1]] %>" data-element="<%= @editor.elements[@layers[1]] %>"></div>
+  <% end %>
+
+  <% if @layers[2] > -1: %>
+    <div class="modifier <%= @editor.elements[@layers[2]] %>" data-element="<%= @editor.elements[@layers[2]] %>"></div>
+  <% end %>
+
+  <% if @layers[3] > -1: %>
+    <div class="wrapper <%= @editor.elements[@layers[3]] %>" data-element="<%= @editor.elements[@layers[3]] %>"></div>
+  <% end %>
+
+</div>

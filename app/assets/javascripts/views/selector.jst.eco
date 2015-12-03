@@ -1,0 +1,61 @@
+<div class="selector">
+  <div class="tiles">
+    <h3>Тайлы</h3>
+
+    <% for element in @selectors.tiles: %>
+      <div class="element <%= element %>"
+           data-element="<%= element %>"
+           data-group="tiles"
+      ></div>
+    <% end %>
+
+  </div>
+
+  <div class="modifiers">
+    <h3>Модификаторы</h3>
+
+    <% for element in @selectors.modifiers: %>
+      <div class="element <%= element %>"
+           data-element="<%= element %>"
+           data-group="modifiers"
+      ></div>
+    <% end %>
+
+    <div class="element delete"
+           data-element="delete"
+           data-group="modifiers"
+    ></div>
+  </div>
+
+  <div class="wrappers">
+    <h3>Обертки</h3>
+
+     <% for element in @selectors.wrappers: %>
+      <div class="element <%= element %>"
+           data-element="<%= element %>"
+           data-group="wrappers"
+      ></div>
+    <% end %>
+
+    <div class="element delete"
+       data-element="delete"
+       data-group="wrappers"
+    ></div>
+  </div>
+
+  <div class="backing">
+    <h3>Положки</h3>
+
+    <% for element in @selectors.backing: %>
+      <div class="element <%= element %>"
+           data-element="<%= element %>"
+           data-group="backing"
+      ></div>
+    <% end %>
+
+    <div class="element delete"
+       data-element="delete"
+       data-group="backing"
+    ></div>
+  </div>
+</div>

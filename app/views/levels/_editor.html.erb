@@ -1,0 +1,10 @@
+<div id="editor"></div>
+
+<script type="text/javascript">
+  $(function(){
+    new Editor({
+      el: $("#editor"),
+      editor: <%= Editor.new.to_json.html_safe %>
+    });
+  });
+</script>

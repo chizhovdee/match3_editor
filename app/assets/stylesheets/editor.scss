@@ -1,0 +1,116 @@
+$elements: empty, random, tile_blue, tile_cyan, tile_green, tile_orange, tile_purple, tile_red, tile_yellow, sump_hatch, road_tile,
+stump, ribbon_1, suitcase;
+
+#editor {
+  .settings, .field, .selector {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .settings {
+    width: 300px;
+
+    label {
+      font-weight: bold;
+    }
+  }
+
+  .field {
+    width: 450px;
+    height: 450px;
+    border: 1px solid black;
+    position: relative;
+    margin-right: 20px;
+
+    .ceil {
+      width: 50px;
+      height: 50px;
+      background-color: #E4E4E4;
+      position: absolute;
+
+      .backing, .tile, .modifier, .wrapper {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+
+        background-size: contain;
+
+        @each $element in $elements {
+          &.#{ $element } {
+            @if $element == empty {
+              background: none;
+            } @else {
+              background-image: asset-url("#{$element}.png");
+            }
+          }
+        }
+      }
+
+      .backing {
+        top: 0px;
+        left: 0px;
+      }
+
+      .tile {
+        top: 2px;
+        left: 2px;
+        width: 48px;
+        height: 48px;
+      }
+
+      .modifier {
+        top: 4px;
+        left: 4px;
+        width: 46px;
+        height: 46px;
+      }
+
+      .wrapper {
+        top: 6px;
+        left: 6px;
+        width: 44px;
+        height: 44px;
+      }
+
+      &.odd {
+        background-color: #F3F3F3;
+      }
+
+      &:hover {
+        border: 1px solid red;
+        z-index: 100;
+      }
+    }
+  }
+
+  .selector {
+    width: 300px;
+
+    .tiles, .backing, .wrappers, .modifiers {
+      margin-bottom: 10px;
+    }
+
+    .element {
+      display: inline-block;
+      vertical-align: top;
+      cursor: pointer;
+      width: 50px;
+      height: 50px;
+      margin-bottom: 5px;
+
+      @each $element in $elements {
+        &.#{ $element } {
+          background: asset-url("#{$element}.png");
+        }
+      }
+
+      &.delete {
+        background: asset-url("delete.png");
+      }
+
+      &.selected {
+        border: 1px solid red;
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+<div class="field">
+  <% for cols, row in @newData.tiles: %>
+    <% for layers, col in cols: %>
+      <%=@safe @.renderTemplate("ceil", col: col, row: row, layers: layers) %>
+    <% end %>
+  <% end %>
+</div>
