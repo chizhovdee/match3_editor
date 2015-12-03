@@ -30,11 +30,11 @@ class Editor
     dirt
   }
 
-  TARGETS = %w{
-    tile_blue tile_cyan tile_green tile_orange tile_purple tile_red
-    road_tile stump ribbon_1 ribbon_2 ribbon_3
-    spider jar_with_paint alarm_clock
-  }
+  # TARGETS = %w{
+  #   tile_blue tile_cyan tile_green tile_orange tile_purple tile_red
+  #   road_tile stump ribbon_1 ribbon_2 ribbon_3
+  #   spider jar_with_paint alarm_clock
+  # }
 
   def current_data
     {}
@@ -43,7 +43,6 @@ class Editor
   def as_json(*args)
     {
       elements: ELEMENTS,
-      targets: TARGETS,
       field_size: FIELD_SIZE,
       current_data: current_data
     }

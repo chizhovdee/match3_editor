@@ -1,17 +1,54 @@
 $elements: empty, random, tile_blue, tile_cyan, tile_green, tile_orange, tile_purple, tile_red, tile_yellow, sump_hatch, road_tile,
-stump, ribbon_1, suitcase;
+stump, ribbon_1, suitcase, spider, jar_with_paint, alarm_clock;
 
 #editor {
+  .delimiter {
+    margin: 5px 0 10px 0;
+    border-bottom: 1px solid #8E8E8E;
+  }
+
   .settings, .field, .selector {
     display: inline-block;
     vertical-align: top;
   }
 
   .settings {
-    width: 300px;
+    width: 20%;
+    margin-left: 10px;
+    background-color: #FCC;
+    padding: 10px;
 
     label {
       font-weight: bold;
+    }
+
+    p {
+      margin-bottom: 5px;
+    }
+
+    .targets {
+      margin-bottom: 10px;
+
+      .target {
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        vertical-align: top;
+        background-size: contain;
+        cursor: pointer;
+        margin: 2px;
+
+        &.selected {
+          border: 2px solid red;
+          margin: 0px;
+        }
+
+        @each $element in $elements {
+          &.#{ $element } {
+            background-image: asset-url("#{$element}.png");
+          }
+        }
+      }
     }
   }
 
@@ -20,7 +57,7 @@ stump, ribbon_1, suitcase;
     height: 450px;
     border: 1px solid black;
     position: relative;
-    margin-right: 20px;
+    margin: 0px 20px;
 
     .ceil {
       width: 50px;
@@ -84,7 +121,9 @@ stump, ribbon_1, suitcase;
   }
 
   .selector {
-    width: 300px;
+    width: 30%;
+    background-color: #FCC;
+    padding: 10px;
 
     .tiles, .backing, .wrappers, .modifiers {
       margin-bottom: 10px;
@@ -96,7 +135,7 @@ stump, ribbon_1, suitcase;
       cursor: pointer;
       width: 50px;
       height: 50px;
-      margin-bottom: 5px;
+      margin: 2px 2px 7px 2px;
 
       @each $element in $elements {
         &.#{ $element } {
@@ -108,8 +147,10 @@ stump, ribbon_1, suitcase;
         background: asset-url("delete.png");
       }
 
+
       &.selected {
-        border: 1px solid red;
+        border: 2px solid red;
+        margin: 0 0 5px 0;
       }
     }
   }

@@ -1,52 +1,43 @@
 <div class="settings">
   <p>
-    <label for="movies">Кол-во ходов</label>
-    <input type="text" name="movies" size="3" value="0" />
+    <label for="moves">Кол-во ходов</label>
+    <input type="text" name="moves" size="3" value="<%= @newData.moves %>" />
   </p>
+
+  <div class="delimiter"></div>
 
   <p>
     <label for="points_2">Кол-во очков (2 звезды)</label>
-    <input type="text" name="points_2" size="5" value="0" />
+    <input type="text" name="points_2" size="5" value="<%= @newData.points_2 %>" />
   </p>
+
+  <div class="delimiter"></div>
 
   <p>
     <label for="points_3">Кол-во очков (3 звезды)</label>
-    <input type="text" name="points_3" size="5" value="0" />
+    <input type="text" name="points_3" size="5" value="<%= @newData.points_3 %>" />
   </p>
 
-  <p>
-    <select name="target_1">
-      <option value="">Выберите цель</option>
+  <div class="delimiter"></div>
 
-      <% for [target, value] in @.targetOptions(): %>
-        <option value="<%= value %>"><%= target %></option>
-      <% end %>
-    </select>
+  <% for [indexElement, count], index in @newData.targets: %>
+    <p>
+      <label for="points_3">Цель <%= index + 1 %>:</label>
 
-    <input type="text" name="target_1_count" size="3" value="0" />
-  </p>
+      <div class="targets" data-index="<%= index %>">
+        <% for target in @targetElements: %>
+          <div class="target <%= target %> <%= "selected" if indexElement > -1 && @editor.elements[indexElement] == target %>"
+               data-target="<%= target %>"
+          >
+          </div>
+        <% end %>
+      </div>
 
-  <p>
-    <select name="target_2">
-      <option value="">Выберите цель</option>
+      <label>Кол-во:</label> <input type="text" name="target_<%= index + 1 %>_count" size="3" value="<%= count %>" />
+    </p>
 
-      <% for [target, value] in @.targetOptions(): %>
-        <option value="<%= value %>"><%= target %></option>
-      <% end %>
-    </select>
+    <div class="delimiter"></div>
+  <% end %>
 
-    <input type="text" name="target_2_count" size="3" value="0" />
-  </p>
 
-  <p>
-    <select name="target_3">
-      <option value="">Выберите цель</option>
-
-      <% for [target, value] in @.targetOptions(): %>
-        <option value="<%= value %>"><%= target %></option>
-      <% end %>
-    </select>
-
-    <input type="text" name="target_3_count" size="3" value="0" />
-  </p>
 </div>

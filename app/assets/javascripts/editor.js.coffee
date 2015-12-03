@@ -19,8 +19,17 @@ class window.Editor extends Spine.Controller
               [[-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1]],
               [[-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1]],
               [[-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1]]],
-    "moves": 15
+    "moves": 15,
+    "points_2": 100,
+    "points_3": 200,
+    "targets": [[-1, 0], [-1, 0], [-1, 0]] # [[index element, count]], -1 empty task
   }
+
+  targetElements: [
+    "tile_blue", "tile_cyan", "tile_green", "tile_orange", "tile_purple", "tile_red",
+    "road_tile", "stump", "ribbon_1",
+    "spider", "jar_with_paint", "alarm_clock"
+  ]
 
   selectors: {
     tiles: [
@@ -29,7 +38,7 @@ class window.Editor extends Spine.Controller
     ],
 
     backing: ["road_tile"],
-    modifiers: ["stump", "ribbon_1"],
+    modifiers: ["stump", "ribbon_1", "spider", "jar_with_paint", "alarm_clock"],
     wrappers: ["suitcase"]
   }
 
@@ -60,6 +69,7 @@ class window.Editor extends Spine.Controller
   bindEventListeners: ->
     @el.on("click", '.selector .element', @.onSelectorElementClick)
     @el.on("click", '.field .ceil', @.onFieldCeilClick)
+    @el.on("click", '.settings .target', @.onSettingsTargetClick)
 
   render: ->
     @html(@.renderTemplate("index"))
@@ -68,20 +78,12 @@ class window.Editor extends Spine.Controller
   ceilStylePosition: (row, col)->
     "top: #{ row * @ceilSize }px; left: #{ col * @ceilSize }px;"
 
-  targetOptions: ->
-    result = []
-
-    for target in @editor.targets
-      result.push [target, @editor.elements.indexOf(target)]
-
-    result
-
   onSelectorElementClick: (e)=>
     element = $(e.currentTarget)
 
     @selector_el.find(".element").removeClass("selected")
 
-    if @currentSelector? && element.data("element") == @currentSelector[0]
+    if @currentSelector? && element.data("element") == @currentSelector[0] && element.data("group") == @currentSelector[1]
       @currentSelector = null
     else
       @currentSelector = [element.data("element"), element.data("group")]
@@ -116,4 +118,28 @@ class window.Editor extends Spine.Controller
     @field_el.find(".ceil:odd").addClass('odd')
 
     console.log @newData.tiles[row][col]
+
+  onSettingsTargetClick: (e)=>
+    target_el = $(e.currentTarget)
+    index = target_el.parents(".targets").data("index")
+
+    target = @newData.targets[index]
+
+    if target_el.data("target") == @editor.elements[target[0]]
+      target[0] = -1
+      target[1] = 0
+      target_el.removeClass("selected")
+
+    else
+      target[0] = @editor.elements.indexOf(target_el.data("target"))
+      target[1] = parseInt(@settings_el.find("input[name=target_#{ index + 1 }_count]").val(), 10)
+
+      @settings_el.find(".targets[data-index=#{ index }] .target").removeClass("selected")
+      target_el.addClass("selected")
+
+
+    console.log target
+
+
+
 
