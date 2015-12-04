@@ -49,13 +49,12 @@ class window.Editor extends Spine.Controller
     else
       @.deepClone(@editor.current_data)
 
-    #console.log @currentData
-    #console.log @newData
-
-    #console.log @editor
-
     @.bindEventListeners()
     @.render()
+
+    @el.find("button.save").hide()
+
+    @.checkChanges()
 
     @field_el.find(".ceil:odd").addClass('odd')
 
@@ -64,6 +63,7 @@ class window.Editor extends Spine.Controller
     @el.on("click", '.field .ceil', @.onFieldCeilClick)
     @el.on("click", '.settings .target', @.onSettingsTargetClick)
     @el.on("click", "button.save:not(.disabled)", @.onSaveButtonClick)
+    @el.on("keyup", "input[type=text]", @.onInputChange)
 
   render: ->
     @html(@.renderTemplate("index"))
@@ -83,8 +83,6 @@ class window.Editor extends Spine.Controller
       @currentSelector = [element.data("element"), element.data("group")]
       element.addClass('selected')
 
-    console.log @currentSelector
-
   onFieldCeilClick: (e)=>
     return unless @currentSelector?
 
@@ -92,9 +90,7 @@ class window.Editor extends Spine.Controller
     row = ceil_el.data("row")
     col = ceil_el.data("col")
 
-    console.log "row:", row, "col:", col
-
-    console.log layers = @newData.tiles[row][col]
+    layers = @newData.tiles[row][col]
 
     layers[@layers.indexOf(@currentSelector[1])] = (
       if @currentSelector[0] == "delete"
@@ -111,7 +107,7 @@ class window.Editor extends Spine.Controller
 
     @field_el.find(".ceil:odd").addClass('odd')
 
-    console.log @newData.tiles[row][col]
+    @.checkChanges()
 
   onSettingsTargetClick: (e)=>
     target_el = $(e.currentTarget)
@@ -131,8 +127,7 @@ class window.Editor extends Spine.Controller
       @settings_el.find(".targets[data-index=#{ index }] .target").removeClass("selected")
       target_el.addClass("selected")
 
-
-    console.log target
+    @.checkChanges()
 
   onSaveButtonClick: (e)=>
     $(e.currentTarget).addClass("disabled")
@@ -142,30 +137,23 @@ class window.Editor extends Spine.Controller
 
       @el.find(".save").removeClass("disabled")
 
-
     value = parseInt(@settings_el.find("input[name=moves]").val(), 10)
 
-    if !_.isNaN(value) && value > -1
-      @newData.moves = value
-    else
+    if _.isNaN(value) || value < 0
       alertError('Неправильное значение поля "Количество ходов"')
 
       return
 
     value = parseInt(@settings_el.find("input[name=points_two_stars]").val(), 10)
 
-    if !_.isNaN(value) && value > -1
-      @newData.points[0] = value
-    else
+    if _.isNaN(value) || value < 0
       alertError('Неправильное значение поля "Количество очков (две звезды)"')
 
       return
 
     value = parseInt(@settings_el.find("input[name=points_three_stars]").val(), 10)
 
-    if !_.isNaN(value) && value > -1
-      @newData.points[1] = value
-    else
+    if _.isNaN(value) || value < 0
       alertError('Неправильное значение поля "Количество очков (три звезды)"')
 
       return
@@ -175,14 +163,10 @@ class window.Editor extends Spine.Controller
 
       value = parseInt(@settings_el.find("input[name=target_#{ index + 1 }_count]").val(), 10)
 
-      if !_.isNaN(value) && value > -1
-        @newData.targets[index][1] = value
-      else
+      if _.isNaN(value) || value < 0
         alertError('Неправильное значение поля "Цель ' + (index + 1) + '"')
 
         return
-
-    console.log @newData
 
     if @editor.level_id
       $.ajax(
@@ -196,3 +180,53 @@ class window.Editor extends Spine.Controller
       $.post("/levels", data: JSON.stringify(@newData), (response)=>
         alert response.result
       )
+
+  onInputChange: (e)=>
+    input_el = $(e.currentTarget)
+
+    value = parseInt(input_el.val(), 10)
+
+    if _.isNaN(value) || value < 0
+      alert('Не кооректное значение')
+
+      return
+
+    switch input_el.attr("name")
+      when "moves"
+        @newData.moves = value
+      when "points_two_stars"
+        @newData.points[0] = value
+      when "points_three_stars"
+        @newData.points[1] = value
+      when "target_1_count"
+        @newData.targets[0][1] = value
+      when "target_2_count"
+        @newData.targets[1][1] = value
+      when "target_3_count"
+        @newData.targets[2][1] = value
+
+    @.checkChanges()
+
+  checkChanges: ->
+    button = @el.find("button.save")
+
+    # проверяем настройки
+    if @newData.moves != @currentData.moves || @newData.points[0] != @currentData.points[0] ||
+       @newData.points[1] != @currentData.points[1]
+
+      return button.show()
+
+    for target, index in @newData.targets
+      if target[0] != @currentData.targets[index][0] || target[1] != @currentData.targets[index][1]
+        return button.show()
+
+    # проряем тайлы
+    for cols, row in @newData.tiles
+      for layers, col in cols
+        for layer, index in layers
+          if layer != @currentData.tiles[row][col][index]
+            return button.show()
+
+    button.hide()
+
+
