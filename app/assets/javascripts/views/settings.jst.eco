@@ -7,16 +7,13 @@
   <div class="delimiter"></div>
 
   <p>
-    <label for="points_2">Кол-во очков (2 звезды)</label>
-    <input type="text" name="points_2" size="5" value="<%= @newData.points_2 %>" />
+    <p><label for="points_2">Кол-во очков:</label></p>
+
+    <p><span>2 звезды</span> <input type="text" name="points_two_stars" size="5" value="<%= @newData.points[0] %>" /></p>
+
+    <p><span>3 звезды</span> <input type="text" name="points_three_stars" size="5" value="<%= @newData.points[1] %>" /></p>
   </p>
 
-  <div class="delimiter"></div>
-
-  <p>
-    <label for="points_3">Кол-во очков (3 звезды)</label>
-    <input type="text" name="points_3" size="5" value="<%= @newData.points_3 %>" />
-  </p>
 
   <div class="delimiter"></div>
 

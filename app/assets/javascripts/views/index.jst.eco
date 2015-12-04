@@ -3,3 +3,7 @@
 <%=@safe @.renderTemplate("field") %>
 
 <%=@safe @.renderTemplate("selector") %>
+
+<div class="controls">
+  <button class="save">Сохранить</button>
+</div>

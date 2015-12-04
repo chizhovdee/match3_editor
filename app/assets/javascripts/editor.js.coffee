@@ -20,8 +20,7 @@ class window.Editor extends Spine.Controller
               [[-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1]],
               [[-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1], [-1, 1, -1, -1]]],
     "moves": 15,
-    "points_2": 100,
-    "points_3": 200,
+    "points": [0, 0] #[two stars, three stars]
     "targets": [[-1, 0], [-1, 0], [-1, 0]] # [[index element, count]], -1 empty task
   }
 
@@ -70,6 +69,7 @@ class window.Editor extends Spine.Controller
     @el.on("click", '.selector .element', @.onSelectorElementClick)
     @el.on("click", '.field .ceil', @.onFieldCeilClick)
     @el.on("click", '.settings .target', @.onSettingsTargetClick)
+    @el.on("click", "button.save:not(.disabled)", @.onSaveButtonClick)
 
   render: ->
     @html(@.renderTemplate("index"))
@@ -140,6 +140,57 @@ class window.Editor extends Spine.Controller
 
     console.log target
 
+  onSaveButtonClick: (e)=>
+    $(e.currentTarget).addClass("disabled")
+
+    alertError = (msg)=>
+      alert(msg)
+
+      @el.find(".save").removeClass("disabled")
 
 
+    value = parseInt(@settings_el.find("input[name=moves]").val(), 10)
+
+    if !_.isNaN(value) && value > -1
+      @newData.moves = value
+    else
+      alertError('Неправильное значение поля "Количество ходов"')
+
+      return
+
+    value = parseInt(@settings_el.find("input[name=points_two_stars]").val(), 10)
+
+    if !_.isNaN(value) && value > -1
+      @newData.points[0] = value
+    else
+      alertError('Неправильное значение поля "Количество очков (две звезды)"')
+
+      return
+
+    value = parseInt(@settings_el.find("input[name=points_three_stars]").val(), 10)
+
+    if !_.isNaN(value) && value > -1
+      @newData.points[1] = value
+    else
+      alertError('Неправильное значение поля "Количество очков (три звезды)"')
+
+      return
+
+    for target, index in @newData.targets
+      continue if target[0] == -1
+
+      value = parseInt(@settings_el.find("input[name=target_#{ index + 1 }_count]").val(), 10)
+
+      if !_.isNaN(value) && value > -1
+        @newData.targets[index][1] = value
+      else
+        alertError('Неправильное значение поля "Цель ' + (index + 1) + '"')
+
+        return
+
+    console.log @newData
+
+    $.post("/levels", data: JSON.stringify(@newData), (response)=>
+      alert response.result
+    )
 

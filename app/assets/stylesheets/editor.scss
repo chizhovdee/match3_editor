@@ -2,6 +2,23 @@ $elements: empty, random, tile_blue, tile_cyan, tile_green, tile_orange, tile_pu
 stump, ribbon_1, suitcase, spider, jar_with_paint, alarm_clock;
 
 #editor {
+  .controls {
+    margin-left: 20px;
+  }
+
+  button.save {
+    background: none;
+    border: 1px solid black;
+    background-color: #FB1E1E;
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+
+    &.disabled {
+      opacity: 0.5;
+    }
+  }
+
   .delimiter {
     margin: 5px 0 10px 0;
     border-bottom: 1px solid #8E8E8E;
@@ -89,24 +106,24 @@ stump, ribbon_1, suitcase, spider, jar_with_paint, alarm_clock;
       }
 
       .tile {
-        top: 2px;
-        left: 2px;
-        width: 48px;
-        height: 48px;
-      }
-
-      .modifier {
         top: 4px;
         left: 4px;
         width: 46px;
         height: 46px;
       }
 
+      .modifier {
+        top: 8px;
+        left: 8px;
+        width: 42px;
+        height: 42px;
+      }
+
       .wrapper {
-        top: 6px;
-        left: 6px;
-        width: 44px;
-        height: 44px;
+        top: 12px;
+        left: 12px;
+        width: 38px;
+        height: 38px;
       }
 
       &.odd {
