@@ -2,4 +2,4 @@
 
 <div class="controls"><%= link_to("Список уровней", root_path) %></div>
 
-<%= render("/levels/editor") %>
+<%= render("/levels/editor", editor: Editor.new) %>

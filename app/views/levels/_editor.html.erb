@@ -4,7 +4,7 @@
   $(function(){
     new Editor({
       el: $("#editor"),
-      editor: <%= Editor.new.to_json.html_safe %>
+      editor: <%= editor.to_json.html_safe %>
     });
   });
 </script>

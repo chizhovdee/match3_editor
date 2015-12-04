@@ -24,12 +24,6 @@ class window.Editor extends Spine.Controller
     "targets": [[-1, 0], [-1, 0], [-1, 0]] # [[index element, count]], -1 empty task
   }
 
-  targetElements: [
-    "tile_blue", "tile_cyan", "tile_green", "tile_orange", "tile_purple", "tile_red",
-    "road_tile", "stump", "ribbon_1",
-    "spider", "jar_with_paint", "alarm_clock"
-  ]
-
   selectors: {
     tiles: [
       "empty", "random", "tile_blue", "tile_cyan", "tile_green", "tile_orange", "tile_purple", "tile_red", "tile_yellow",
@@ -56,7 +50,7 @@ class window.Editor extends Spine.Controller
       @.deepClone(@editor.current_data)
 
     #console.log @currentData
-    console.log @newData
+    #console.log @newData
 
     #console.log @editor
 
@@ -190,7 +184,15 @@ class window.Editor extends Spine.Controller
 
     console.log @newData
 
-    $.post("/levels", data: JSON.stringify(@newData), (response)=>
-      alert response.result
-    )
+    if @editor.level_id
+      $.ajax(
+        url: "/levels/#{ @editor.level_id }"
+        type: 'PUT'
+        data: data: JSON.stringify(@newData)
+        success: (response)=> alert response.result
+      )
 
+    else
+      $.post("/levels", data: JSON.stringify(@newData), (response)=>
+        alert response.result
+      )

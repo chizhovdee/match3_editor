@@ -22,7 +22,7 @@
       <label for="points_3">Цель <%= index + 1 %>:</label>
 
       <div class="targets" data-index="<%= index %>">
-        <% for target in @targetElements: %>
+        <% for target in @editor.targets: %>
           <div class="target <%= target %> <%= "selected" if indexElement > -1 && @editor.elements[indexElement] == target %>"
                data-target="<%= target %>"
           >
