@@ -2,7 +2,7 @@
   <div class="tiles">
     <h3>Тайлы</h3>
 
-    <% for element in @selectors.tiles: %>
+    <% for element in @editor.selectors.tiles: %>
       <div class="element <%= element %>"
            data-element="<%= element %>"
            data-group="tiles"
@@ -15,7 +15,7 @@
   <div class="modifiers">
     <h3>Модификаторы</h3>
 
-    <% for element in @selectors.modifiers: %>
+    <% for element in @editor.selectors.modifiers: %>
       <div class="element <%= element %>"
            data-element="<%= element %>"
            data-group="modifiers"
@@ -33,7 +33,7 @@
   <div class="wrappers">
     <h3>Обертки</h3>
 
-     <% for element in @selectors.wrappers: %>
+     <% for element in @editor.selectors.wrappers: %>
       <div class="element <%= element %>"
            data-element="<%= element %>"
            data-group="wrappers"
@@ -51,7 +51,7 @@
   <div class="backing">
     <h3>Подложки</h3>
 
-    <% for element in @selectors.backing: %>
+    <% for element in @editor.selectors.backing: %>
       <div class="element <%= element %>"
            data-element="<%= element %>"
            data-group="backing"

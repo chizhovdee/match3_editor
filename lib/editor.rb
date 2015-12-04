@@ -1,6 +1,4 @@
 class Editor
-  FIELD_SIZE = 9
-
   DIR = 'public'
 
   ELEMENTS = %w{
@@ -37,6 +35,19 @@ class Editor
     road_tile stump ribbon_1
     spider jar_with_paint alarm_clock
   }
+
+  SELECTORS = {
+    tiles: [
+      "empty", "random", "tile_blue", "tile_cyan", "tile_green", "tile_orange", "tile_purple", "tile_red", "tile_yellow",
+      "sump_hatch", "wheel"
+    ],
+
+    backing: ["road_tile"],
+    modifiers: ["stump", "ribbon_1", "spider", "jar_with_paint", "alarm_clock"],
+    wrappers: ["suitcase"]
+  }
+
+  LAYERS = ["backing", "tiles", "modifiers", "wrappers"]
 
   attr_accessor :error, :current_data, :level_id
 
@@ -121,9 +132,10 @@ class Editor
     {
       level_id: level_id,
       elements: ELEMENTS,
-      field_size: FIELD_SIZE,
       current_data: current_data,
-      targets: TARGETS
+      targets: TARGETS,
+      selectors: SELECTORS,
+      layers: LAYERS
     }
   end
 end

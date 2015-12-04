@@ -24,19 +24,6 @@ class window.Editor extends Spine.Controller
     "targets": [[-1, 0], [-1, 0], [-1, 0]] # [[index element, count]], -1 empty task
   }
 
-  selectors: {
-    tiles: [
-      "empty", "random", "tile_blue", "tile_cyan", "tile_green", "tile_orange", "tile_purple", "tile_red", "tile_yellow",
-      "sump_hatch"
-    ],
-
-    backing: ["road_tile"],
-    modifiers: ["stump", "ribbon_1", "spider", "jar_with_paint", "alarm_clock"],
-    wrappers: ["suitcase"]
-  }
-
-  layers: ["backing", "tiles", "modifiers", "wrappers"]
-
   constructor: ->
     super
 
@@ -92,7 +79,7 @@ class window.Editor extends Spine.Controller
 
     layers = @newData.tiles[row][col]
 
-    layers[@layers.indexOf(@currentSelector[1])] = (
+    layers[@editor.layers.indexOf(@currentSelector[1])] = (
       if @currentSelector[0] == "delete"
         -1
       else

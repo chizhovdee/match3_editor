@@ -1,5 +1,5 @@
 $elements: empty, random, tile_blue, tile_cyan, tile_green, tile_orange, tile_purple, tile_red, tile_yellow, sump_hatch, road_tile,
-stump, ribbon_1, suitcase, spider, jar_with_paint, alarm_clock;
+stump, ribbon_1, suitcase, spider, jar_with_paint, alarm_clock, wheel;
 
 #editor {
   .controls {
@@ -153,15 +153,16 @@ stump, ribbon_1, suitcase, spider, jar_with_paint, alarm_clock;
       width: 50px;
       height: 50px;
       margin: 2px 2px 7px 2px;
+      background-size: contain;
 
       @each $element in $elements {
         &.#{ $element } {
-          background: asset-url("#{$element}.png");
+          background-image: asset-url("#{$element}.png");
         }
       }
 
       &.delete {
-        background: asset-url("delete.png");
+        background-image: asset-url("delete.png");
       }
 
 
