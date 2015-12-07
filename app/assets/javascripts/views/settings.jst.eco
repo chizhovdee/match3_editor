@@ -1,0 +1,40 @@
+<div class="settings">
+  <p>
+    <label for="moves">Кол-во ходов</label>
+    <input type="text" name="moves" size="3" value="<%= @newData.moves %>" />
+  </p>
+
+  <div class="delimiter"></div>
+
+  <p>
+    <p><label for="points_2">Кол-во очков:</label></p>
+
+    <p><span>2 звезды</span> <input type="text" name="points_two_stars" size="5" value="<%= @newData.points[0] %>" /></p>
+
+    <p><span>3 звезды</span> <input type="text" name="points_three_stars" size="5" value="<%= @newData.points[1] %>" /></p>
+  </p>
+
+
+  <div class="delimiter"></div>
+
+  <% for [indexElement, count], index in @newData.targets: %>
+    <p>
+      <label for="points_3">Цель <%= index + 1 %>:</label>
+
+      <div class="targets" data-index="<%= index %>">
+        <% for target in @editor.targets: %>
+          <div class="target <%= target %> <%= "selected" if indexElement > -1 && @editor.elements[indexElement] == target %>"
+               data-target="<%= target %>"
+          >
+          </div>
+        <% end %>
+      </div>
+
+      <label>Кол-во:</label> <input type="text" name="target_<%= index + 1 %>_count" size="3" value="<%= count %>" />
+    </p>
+
+    <div class="delimiter"></div>
+  <% end %>
+
+
+</div>

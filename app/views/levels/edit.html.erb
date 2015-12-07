@@ -1,0 +1,5 @@
+<h2>Уровень <%= params[:id] %></h2>
+
+<div class="controls"><%= link_to("Список уровней", root_path) %></div>
+
+<%= render("/levels/editor", editor: @editor) %>

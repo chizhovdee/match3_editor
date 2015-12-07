@@ -12,5 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
-//= require_tree .
+//= require underscore-min
+//= require spine
+//= require_tree ./views
+//= require utils
+//= require editor
+//= require_self
